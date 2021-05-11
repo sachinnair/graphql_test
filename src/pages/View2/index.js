@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useQuery, ApolloProvider, gql } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
-import { client } from "../../App";
 import { default as InfoTable } from "../../components/InfoTable";
 import { useParams } from "react-router-dom";
 
@@ -32,11 +31,11 @@ const FETCH_REPO_LIST = gql`
 
 export default function View2({ sendGraphDataForView2 }) {
   const [rows, setRows] = useState([{}]);
-  const [columns, setColumns] = useState([
+  const columns = [
     { id: "repoName", label: "Repository Name" },
     { id: "totalForked", label: "Total Forked" },
     { id: "totalWatchers", label: "Total Watchers" },
-  ]);
+  ];
 
   
   const { keywrd = "ethereum" } = useParams();
@@ -97,10 +96,12 @@ export default function View2({ sendGraphDataForView2 }) {
 
   useEffect(() => {
     mapDataToRows(data);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {
     return () => sendGraphDataForView2();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -7,13 +7,11 @@ import {
   InMemoryCache,
   createHttpLink,
   gql,
-  useQuery,
   ApolloProvider,
 } from "@apollo/client";
 import { relayStylePagination } from "@apollo/client/utilities";
 import { setContext } from "@apollo/client/link/context";
-import { useEffect, useState } from "react";
-import { Link as HrefLink } from "@material-ui/core";
+import { useState } from "react";
 
 import { default as SearchBar } from "./components/SearchBar";
 import { default as InfoTable } from "./components/InfoTable";
@@ -28,7 +26,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = process.env.GITHUB_PTA;
+  const token = process.env.REACT_APP_GITHUB_PTA;
   // return the headers to the context so httpLink can read them
   return {
     headers: {
